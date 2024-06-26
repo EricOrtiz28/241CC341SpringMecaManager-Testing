@@ -132,6 +132,9 @@ public class ClienteControllerTest {
 
     @Test
     public void ClienteController_update() throws Exception {
+        
+        given(clienteService.getClienteById(cliente1.getId_cliente())).willReturn(Optional.of(cliente1));
+        
         doAnswer(invocation -> {
             Cliente cliente = invocation.getArgument(0);
             cliente.setId_cliente(1L);
