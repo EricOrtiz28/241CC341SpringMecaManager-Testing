@@ -31,6 +31,7 @@ import uni.isw.service.ClienteService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import uni.isw.repository.ClienteRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -46,6 +47,8 @@ public class ClienteControllerTest {
     private ObjectMapper objectMapper;
 
     private Cliente cliente1, cliente2;
+    @MockBean
+    private ClienteRepository clienteRepository;
 
     @BeforeEach
     public void init() {
@@ -70,6 +73,7 @@ public class ClienteControllerTest {
 
     @Test
     public void ClienteController_Insert() throws Exception {
+         given(clienteRepository.existsByDni(cliente1.getDni())).willReturn(true);
         doAnswer(invocation -> {
             Cliente cliente = invocation.getArgument(0);
             cliente.setId_cliente(1L);
